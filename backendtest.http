@@ -1,0 +1,11 @@
+POST https://api.cphbusinessapps.dk/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user123"
+}
+
+###
+GET https://api.cphbusinessapps.dk/api/protected/user_demo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcGhidXNpbmVzc2FwcHMuZGsiLCJzdWIiOiJ1c2VyIiwiZXhwIjoxNzAyMTQ0NzE1LCJyb2xlcyI6InVzZXIiLCJ1c2VybmFtZSI6InVzZXIifQ.uy6-FIuuf1EEH7zCW0HLICLaEwc9n7jck9J5RYWNYuU

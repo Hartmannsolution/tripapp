@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    height: 100vh; /* Adjust as needed */
+  }
+  
+  .left-pane,
+  .right-pane {
+    flex: 1; /* Each pane will take equal width. Adjust with flex values if you want different widths */
+    padding: 10px;
+    border: 1px solid #ccc;
+    overflow-y: auto; /* Enables vertical scrolling */
+  }
+  
+  .left-pane {
+    min-height: 50%; /* Ensures it fills the container */
+  }
+  
+  .right-pane {
+    min-height: 50%;
+  }
+  
