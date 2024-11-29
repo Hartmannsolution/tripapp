@@ -25,13 +25,6 @@ jobs:
       - name: Build the React project
         run: npm run build # Runs the build script specified in package.json.
 
-      - name: Debug SSH Key
-        run: |
-          echo "${{ secrets.DO_SSH_KEY }}" | wc -l
-          echo "${{ secrets.DO_SSH_KEY }}" | head -n 2
-          echo "$DO_SSH_KEY" | ssh-add -
-        shell: bash
-
       - name: Set up SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
