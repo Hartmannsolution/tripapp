@@ -1,5 +1,14 @@
 import properties from "./properties";
 
+
+
+const apiFacade = () => {
+
+  const loggedIn = () => {
+    const loggedIn = getToken() != null;
+    return loggedIn;
+  };
+
 const makeOptions = (method, withToken, body) => {
   method = method ? method : "GET";
   var opts = {
@@ -29,6 +38,7 @@ const handleHttpErrors = (res) => {
   return res.json();
 };
 
+
 const fetchAny = async (
   url,
   handleData,
@@ -42,10 +52,12 @@ const fetchAny = async (
   try {
     const options = makeOptions(method, withToken, body);
     const response = await fetch(url, options);
+    console.log('response',response)
     const json = await handleHttpErrors(response);
     console.log("fetchAny", json);
     handleData(json);
   } catch (error) {
+    console.log(error);
     if (error.status) {
       const message = await error.fullError;
       console.log("ERROR CAUGHT IN fetchAny:",error, message, message.title);
@@ -57,8 +69,6 @@ const fetchAny = async (
     }
   }
 };
-
-const apiFacade = () => {
 
   const login = (user, password) => {
     fetchAny(
@@ -77,11 +87,6 @@ const apiFacade = () => {
 
   const getToken = () => {
     return localStorage.getItem("jwtToken");
-  };
-
-  const loggedIn = () => {
-    const loggedIn = getToken() != null;
-    return loggedIn;
   };
 
   const logout = () => {
