@@ -7,6 +7,7 @@ import { Trips  } from "./components/trips/Trips";
 import  TripDetails   from "./components/trips/TripDetails";
 import Home from "./pages/Home";
 import ErrorPage from "./components/error-page";
+import Error404Page from "./pages/Error404Page";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/about" element={<About/>} errorElement={<ErrorPage/>}/>  
       <Route path="/contact" element={<Contact/>} errorElement={<ErrorPage/>}/>
+      <Route path="*" element={<Error404Page />} />
     </Route>
   )
 );

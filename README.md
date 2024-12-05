@@ -17,4 +17,11 @@ docker build -t react-docker .
 2. Run the container
 ```bash
 
-# repo auto created
+## TODO
+- [ ] Keep logged in after browser refresh
+- [ ] Add useAuth hook 
+- [ ] Add a loading spinner
+- [ ] Add a 404 page
+- [ ] Add a 500 page
+- [ ] Add error handling for API requests
+

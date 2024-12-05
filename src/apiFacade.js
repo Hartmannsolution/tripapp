@@ -1,7 +1,5 @@
 import properties from "./properties";
 
-
-
 const apiFacade = () => {
 
   const loggedIn = () => {
