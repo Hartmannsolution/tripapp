@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import LoginContainer from "../login/LoginContainer";
+import { useAuth } from "../../hooks/AuthContext";
 
 // Styled Components
 const HeaderContainer = styled.header`
@@ -60,7 +61,8 @@ const NavMenu = styled.nav`
   }
 `;
 
-const Header = ({ facade, setUserContext, headers }) => {
+const Header = ({ headers }) => {
+  const { user } = useAuth();
   return (
     <HeaderContainer>
       <Logo>Logo</Logo>
@@ -72,7 +74,9 @@ const Header = ({ facade, setUserContext, headers }) => {
         >
           Home
         </NavLink>
-        {headers.map((header, index) => (
+        {headers // Filter out headers that the user does not have access to
+        .filter(header=>header.allowedRoles.includes(user.roles)||header.allowedRoles.includes("none"))
+        .map((header, index) => (
           <NavLink
             key={index}
             to={header.url}
@@ -82,7 +86,7 @@ const Header = ({ facade, setUserContext, headers }) => {
           </NavLink>
         ))}
       </NavMenu>
-      <LoginContainer facade={facade} setUserContext={setUserContext} />
+      <LoginContainer />
     </HeaderContainer>
   );
 };

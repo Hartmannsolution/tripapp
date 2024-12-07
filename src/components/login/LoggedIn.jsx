@@ -7,12 +7,13 @@ const StyledUserInfo = styled.span`
 `;
 
 function LoggedIn({user, logout}){
+  console.log('USER FROM LOOGEDIN: ',user)
     
   
     return (
       <>
           <StyledUserInfo>
-           {user && user.username}{" "} 
+           {user} 
            </StyledUserInfo>
           <StyledButton onClick={logout}>Logout</StyledButton>
       </>

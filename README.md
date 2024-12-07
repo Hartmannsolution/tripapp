@@ -18,10 +18,21 @@ docker build -t react-docker .
 ```bash
 
 ## TODO
-- [ ] Keep logged in after browser refresh
-- [ ] Add useAuth hook 
+- [x] Keep logged in after browser refresh
+- [x] Add useAuth hook 
+- [x] Add ProtectedRoutes with allowed roles
+- [x] Add Conditional rendering of top menu based on user role
 - [ ] Add a loading spinner
-- [ ] Add a 404 page
+- [x] Add a 404 page
 - [ ] Add a 500 page
 - [ ] Add error handling for API requests
+- [ ] Add a toast notification
+- [ ] Add a modal
+- [ ] Add a form validation
+- [ ] Add a form submission with a loading spinner
+
+## Backend beskyttet
+1. Alle kan se trips
+2. Kun user kan se trip details
+3. Kun admin kan se guides
 

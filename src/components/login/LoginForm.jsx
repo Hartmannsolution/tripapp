@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // Styled components
@@ -62,28 +62,29 @@ const StyledButton = styled.button`
 `;
 
 // Main Component
-function LogIn({ login }) {
+function LogInForm({ login }) {
   const init = { username: '', password: '' };
-  const [loginCredentials, setLoginCredentials] = useState(init);
+  // const [loginCredentials, setLoginCredentials] = useState(init);
 
   const performLogin = (evt) => {
     evt.preventDefault();
-    login(loginCredentials.username, loginCredentials.password);
+    const loginForm = new FormData(evt.target);
+    login(loginForm.get('username'), loginForm.get('password'));
   };
 
-  const onChange = (evt) => {
-    setLoginCredentials({ ...loginCredentials, [evt.target.id]: evt.target.value });
-  };
+  // const onChange = (evt) => {
+  //   setLoginCredentials({ ...loginCredentials, [evt.target.id]: evt.target.value });
+  // };
 
   return (
     <FormContainer>
-      <StyledForm onChange={onChange}>
-        <StyledInput placeholder="User Name" id="username" />
-        <StyledInput type="password" placeholder="Password" id="password" />
-        <StyledButton onClick={performLogin}>Login</StyledButton>
+      <StyledForm onSubmit={performLogin}>
+        <StyledInput name="username" placeholder="User Name" />
+        <StyledInput name="password" type="password" placeholder="Password" />
+        <StyledButton type="submit" >Login</StyledButton>
       </StyledForm>
     </FormContainer>
   );
 }
 
-export default LogIn;
+export default LogInForm;

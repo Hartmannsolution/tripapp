@@ -46,7 +46,7 @@ const Trips = () => {
   useEffect(() => { // Get initial list of trips
     (async () => {
       try {
-        await facade.fetchAny("trips", (data)=>{setTrips(data); setTripsToShow(data);}, setError);
+        await facade.fetchAny("trips", (data)=>{setTrips(data); setTripsToShow(data);});
       } catch (error) {
         console.error(error);
         setError(error);

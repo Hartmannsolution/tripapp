@@ -12,7 +12,7 @@ const TripDetails = () => {
   useEffect(() => {
     (async () => {
       try {
-        await facade.fetchAny(`trips/${tripId}`, setTrip, (error)=>alert(error), 'GET',null, true);
+        await facade.fetchAny(`trips/${tripId}`, setTrip, 'GET',null, true);
       } catch (error) {
         console.error(error);
       }

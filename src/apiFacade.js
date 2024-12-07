@@ -31,7 +31,8 @@ const makeOptions = (method, withToken, body) => {
 const handleHttpErrors = (res) => {
   if (!res.ok) {
     console.log('ERROR!',res);
-    return Promise.reject({ status: res.status, fullError: res.json() });
+    throw new Error(res.statusText);
+    // return Promise.reject({ status: res.status, fullError: res.json() });
   }
   return res.json();
 };
@@ -40,7 +41,6 @@ const handleHttpErrors = (res) => {
 const fetchAny = async (
   url,
   handleData,
-  handleError,
   method,
   body,
   withToken
@@ -50,7 +50,7 @@ const fetchAny = async (
   try {
     const options = makeOptions(method, withToken, body);
     const response = await fetch(url, options);
-    console.log('response',response)
+    // console.log('response',response)
     const json = await handleHttpErrors(response);
     console.log("fetchAny", json);
     handleData(json);
@@ -58,23 +58,24 @@ const fetchAny = async (
     console.log(error);
     if (error.status) {
       const message = await error.fullError;
-      console.log("ERROR CAUGHT IN fetchAny:",error, message, message.title);
-      handleError(message.title);
-      // throw new Error(message.message);
+      throw new Error(message.message);
     } else {
-      handleError("Network error");
-      // throw new Error("Network error");
+      // handleError("Network error");
+      throw new Error("Network error");
     }
   }
 };
 
-  const login = (user, password) => {
-    fetchAny(
-      `auth/login`,
-      (data) => setToken(data.token),
-      (err) => console.log(err),
+  const login = (username, password, setUser) => {
+    fetchAny(`auth/login`,
+      (data) => {
+        setToken(data.token); 
+        // setUser({... readJwtToken(data.token)})
+        const  { iss, sub, exp, roles, username} = readJwtToken(data.token);
+        setUser({username, roles});
+      },
       "POST",
-      { username: user, password: password },
+      { username, password},
       false
     );
   };
@@ -105,6 +106,7 @@ const fetchAny = async (
         })
         .join("")
     );
+    console.log("readJwtToken", JSON.parse(jsonPayload));
     return JSON.parse(jsonPayload);
   };
 
