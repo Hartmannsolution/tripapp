@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { login as apiLogin, logout as apiLogout, readJwtToken } from "../apiFacade";
+import toastservice from "../services/toastservice";
 
 const AuthContext = createContext(null);
 
@@ -14,10 +15,16 @@ export function AuthProvider({ children }) {
 
   const login = async (username, password) => {
     try {
+      await toastservice.promise( (async () => {
       const user = await apiLogin(username, password);
       setUser(user);
       setLoggedIn(true);
       setError(null); // Clear error on successful login
+      })(), {
+        loading: "Logging in...",
+        success: "Logged in!",
+        error: "Login failed! Please check your credentials."
+      });
     } catch (err) {
       console.error("Login failed:", err);
       setError(err.message);

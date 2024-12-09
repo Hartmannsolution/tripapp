@@ -25,7 +25,7 @@ docker build -t react-docker .
 - [x] Add a loading spinner
 - [x] Add a 404 page
 - [x] Add error handling for API requests
-- [ ] Add a toast notification
+- [x] Add a toast notification
 - [ ] Add a modal
 - [ ] Add a form validation
 - [ ] Add a form submission with a loading spinner
