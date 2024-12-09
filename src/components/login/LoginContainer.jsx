@@ -4,7 +4,6 @@ import LoginForm from './LoginForm'
 import './login.css'
 import styled from 'styled-components'
 import { useAuth } from '../../hooks/AuthContext'
-import facade from '../../apiFacade'
 
 const StyledLoginContainer = styled.div`
  font: 1em Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

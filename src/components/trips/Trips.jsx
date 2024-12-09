@@ -1,12 +1,13 @@
 // Main page for trips. It will show a list of trips and a dropdown to filter by category.
 
 import { Outlet} from "react-router-dom";
-import facade from "../../apiFacade";
+import {fetchAny as apiFetch} from "../../apiFacade";
 import { useEffect, useState } from "react";
 import Title from "../baseElements/Title";
 import CustomDropdown from "./CustomDropDown";
 import TripItem from "./TripItem";
 import  { TripPane, TripContainer, CardContainer } from "./StyledComps";
+import LoadingSpinner from "../baseElements/LoadingSpinner";
 
 
 const TripList = ({ trips, colors, setCategory }) => {
@@ -41,15 +42,21 @@ const Trips = () => {
   const [tripsToShow, setTripsToShow] = useState([]);
   const [error, setError] = useState("");
   const [category, setCategory] = useState("");
+  const [loading, setLoading] = useState(false);
   const colors = ["#e0f7fa", "#e6f7e6", "#ffe0e9", "#f3e5f5"]; // soft blue, pale green, pastel pink, light lavender
 
   useEffect(() => { // Get initial list of trips
     (async () => {
       try {
-        await facade.fetchAny("trips", (data)=>{setTrips(data); setTripsToShow(data);});
+        setLoading(true);
+        const data = await apiFetch("trips");
+        setTrips(data); 
+        setTripsToShow(data);
       } catch (error) {
         console.error(error);
         setError(error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
@@ -63,6 +70,7 @@ const Trips = () => {
   return (
     <TripContainer>
       {error && <h1>{error}</h1>}
+      {loading && <LoadingSpinner />}
       <TripList trips={tripsToShow} colors={colors} setCategory={setCategory}/>
       <Outlet /> {/* Outlet is for Trip Details here */}
     </TripContainer>

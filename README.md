@@ -22,10 +22,9 @@ docker build -t react-docker .
 - [x] Add useAuth hook 
 - [x] Add ProtectedRoutes with allowed roles
 - [x] Add Conditional rendering of top menu based on user role
-- [ ] Add a loading spinner
+- [x] Add a loading spinner
 - [x] Add a 404 page
-- [ ] Add a 500 page
-- [ ] Add error handling for API requests
+- [x] Add error handling for API requests
 - [ ] Add a toast notification
 - [ ] Add a modal
 - [ ] Add a form validation

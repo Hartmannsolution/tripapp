@@ -16,10 +16,12 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import { AuthProvider } from "./hooks/AuthContext";
+import { ErrorProvider } from "./hooks/ErrorContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App/>}> 
+    <Route path="/" element={ <ErrorProvider><AuthProvider><App/></AuthProvider></ErrorProvider> } errorElement={<ErrorPage/>}>
     <Route index element={<Home />} />
       <Route path="trips" element={<Trips />} errorElement={<ErrorPage/>}> {/* // ErrorPage is shown under the Header in the App */}
         <Route path=":tripId" element={<ProtectedRoute allowedRoles="user"><TripDetails/></ProtectedRoute>} />

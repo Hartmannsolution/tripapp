@@ -71,4 +71,5 @@ const DetailsContainer = styled.div`
   margin: 0 auto;
 `;
 
-export { TripPane, TripContainer, CardContainer, Card, CardTitle, CardInfo, PackingItemTable, DetailsContainer };
+
+export { TripPane, TripContainer, CardContainer, Card, CardTitle, CardInfo, PackingItemTable, DetailsContainer};

@@ -2,19 +2,19 @@ import { useEffect, useState, useContext, createContext } from "react";
 import { Outlet, useRouteError } from "react-router-dom";
 import "./App.css";
 import Header from "./components/header/Header";
-import facade from "./apiFacade";
-import styled, {ThemeProvider} from "styled-components";
-import { theme } from './theme'; // Import the theme (colors) from theme.js
-import { AuthProvider } from "./hooks/AuthContext";
+import styled, { ThemeProvider } from "styled-components";
+import { theme } from "./theme"; // Import the theme (colors) from theme.js
+import { useAuth } from "./hooks/AuthContext";
+import { useError } from "./hooks/ErrorContext";
+
+const MainContent = styled.main`
+  margin-top: 70px; /* Push content down to avoid it being hidden behind the fixed header */
+  backgroud-color: ${(props) => props.theme.blue};
+`;
 
 const App = () => {
-  const MainContent = styled.main`
-    margin-top: 70px; /* Push content down to avoid it being hidden behind the fixed header */
-    backgroud-color: ${(props) => props.theme.blue};
-  `;
-
-  // const [userContext, setUserContext] = useState(null); // Context to store user info
-
+  const {error : loginError} = useAuth();
+  const {error : globalError} = useError();
   const headers = [
     { title: "Trips", url: "/trips", allowedRoles: ["none"] },
     { title: "About", url: "/about", allowedRoles: ["none"] },
@@ -23,18 +23,18 @@ const App = () => {
   ];
 
   return (
-    <AuthProvider>
       <ThemeProvider theme={theme}>
-      <Header
-        // facade={facade}
-        // setUserContext={setUserContext}
-        headers={headers}
-      />
-      <MainContent>
-        <Outlet />
-      </MainContent>
+        <Header
+          // facade={facade}
+          // setUserContext={setUserContext}
+          headers={headers}
+        />
+        <MainContent>
+          {loginError && <div>{loginError}</div>}
+          {/* {globalError && <div>{globalError}</div>} */}
+          <Outlet context={{globalError}}/>
+        </MainContent>
       </ThemeProvider>
-    </AuthProvider>
   );
 };
 

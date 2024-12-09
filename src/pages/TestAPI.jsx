@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
-import facade from "../apiFacade";
+import {fetchAny} from "../apiFacade";
 
 const TestApi = () => {
   const [data, setData] = useState([{}]);
   const [updated, setUpdated] = useState(false);
-  useEffect(() => {
-    facade
-      .fetchAny(
-        "trips",
-        setData,
-        "GET",
-        null,
-        true
-      )
-      .then(() => console.log("got it"));
-  }, [updated]);
+  useEffect(()=> {
+    (async () => {
+    try{
+      const data = await fetchAny( "trips");
+      setData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  })()}, []);
 //   useEffect(() => console.log("Data was updated:::::::", data), [data]);
 
   // Populate the table with the data depending on the type of data received (array or object)

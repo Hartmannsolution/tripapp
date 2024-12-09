@@ -1,29 +1,32 @@
 import { useState, useEffect } from "react";
-import facade from "../apiFacade";
+import { fetchAny as apiFetch } from "../apiFacade";
 import styled from "styled-components";
 
 const StyledGuideTable = styled.table`
-    border-collapse: collapse;
-    width: 80%;
-    margin: 0 auto;
-    th, td {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    `;
+  border-collapse: collapse;
+  width: 80%;
+  margin: 0 auto;
+  th,
+  td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+`;
 
 export default function Guides() {
-    const [guides, setGuides] = useState([]);
-    useEffect(() => {
-        facade.fetchAny("guides", setGuides, "GET", null, true);
-    }, []);
+  const [guides, setGuides] = useState([]);
+
+  useEffect(()=>{(async () => {
+    const data = await apiFetch("guides", 'GET', null, true);
+    setGuides(data);
+  })()}, []);
 
   return (
     <>
